@@ -2,7 +2,7 @@ package com.thoughtworks.tfoster.twu;
 
 import java.io.PrintStream;
 
-public class Movie {
+public class Movie implements MediaItem {
 
     private static final int TITLE_WIDTH = 15;
     private static final int DIRECTOR_WIDTH = 15;
@@ -31,6 +31,10 @@ public class Movie {
         printStream.print(" | ");
         printStream.print(fixFieldWidth(rating, 2));
         printStream.print("\n");
+    }
+
+    public boolean hasTitle(String title) {
+        return this.title.equals(title);
     }
 
     private String fixFieldWidth(String field, int width) {

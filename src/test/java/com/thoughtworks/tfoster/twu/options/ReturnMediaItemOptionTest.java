@@ -1,6 +1,6 @@
 package com.thoughtworks.tfoster.twu.options;
 
-import com.thoughtworks.tfoster.twu.Library;
+import com.thoughtworks.tfoster.twu.MediaDatabase;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -11,19 +11,19 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-public class ReturnBookOptionTest {
+public class ReturnMediaItemOptionTest {
 
-    private Library library;
+    private MediaDatabase mediaDatabase;
     private BufferedReader reader;
-    private ReturnBookOption option;
+    private ReturnMediaItemOption option;
     private PrintStream printStream;
 
     @Before
     public void setUp() throws Exception {
-        library = mock(Library.class);
+        mediaDatabase = mock(MediaDatabase.class);
         reader = mock(BufferedReader.class);
         printStream = mock(PrintStream.class);
-        option = new ReturnBookOption(library, printStream, reader);
+        option = new ReturnMediaItemOption(mediaDatabase, printStream, reader);
     }
 
     @Test
@@ -44,10 +44,10 @@ public class ReturnBookOptionTest {
     public void shouldReturnSpecifiedBookWhenRun() throws Exception {
         String title = "Title";
         when(reader.readLine()).thenReturn(title);
-        when(library.isBookCheckedOut(title)).thenReturn(true);
+        when(mediaDatabase.isCheckedOut(title)).thenReturn(true);
         option.run();
 
-        verify(library).returnBook(title);
+        verify(mediaDatabase).returnItem(title);
     }
 
     @Test
@@ -56,14 +56,14 @@ public class ReturnBookOptionTest {
         when(reader.readLine()).thenReturn(title);
         option.run();
 
-        verify(library).isBookCheckedOut(title);
+        verify(mediaDatabase).isCheckedOut(title);
     }
 
     @Test
     public void shouldPrintSuccessMessageIfBookHasBeenReturned() throws Exception {
         String bookTitle = "Title of Book";
         when(reader.readLine()).thenReturn(bookTitle);
-        when(library.isBookCheckedOut(bookTitle)).thenReturn(true);
+        when(mediaDatabase.isCheckedOut(bookTitle)).thenReturn(true);
         option.run();
 
         verify(printStream).println("Thank you for returning the book.");
@@ -73,7 +73,7 @@ public class ReturnBookOptionTest {
     public void shouldPrintErrorMessageIfBookIsNotCheckedOut() throws Exception {
         String bookTitle = "Title of Book";
         when(reader.readLine()).thenReturn(bookTitle);
-        when(library.isBookAvailable(bookTitle)).thenReturn(false);
+        when(mediaDatabase.isAvailable(bookTitle)).thenReturn(false);
         option.run();
 
         verify(printStream).println("That is not a valid book to return.");

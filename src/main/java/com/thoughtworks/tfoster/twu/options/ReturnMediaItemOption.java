@@ -1,19 +1,19 @@
 package com.thoughtworks.tfoster.twu.options;
 
-import com.thoughtworks.tfoster.twu.Library;
+import com.thoughtworks.tfoster.twu.MediaDatabase;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintStream;
 
-public class ReturnBookOption implements MenuOption {
+public class ReturnMediaItemOption implements MenuOption {
 
-    private Library library;
+    private MediaDatabase mediaDatabase;
     private PrintStream printStream;
     private BufferedReader reader;
 
-    public ReturnBookOption(Library library, PrintStream printStream, BufferedReader reader) {
-        this.library = library;
+    public ReturnMediaItemOption(MediaDatabase mediaDatabase, PrintStream printStream, BufferedReader reader) {
+        this.mediaDatabase = mediaDatabase;
         this.printStream = printStream;
         this.reader = reader;
     }
@@ -36,8 +36,8 @@ public class ReturnBookOption implements MenuOption {
             e.printStackTrace();
         }
 
-        if(library.isBookCheckedOut(userInput)) {
-            library.returnBook(userInput);
+        if(mediaDatabase.isCheckedOut(userInput)) {
+            mediaDatabase.returnItem(userInput);
             printStream.println("Thank you for returning the book.");
         }
         else

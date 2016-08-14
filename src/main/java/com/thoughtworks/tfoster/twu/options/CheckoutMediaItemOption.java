@@ -1,19 +1,19 @@
 package com.thoughtworks.tfoster.twu.options;
 
-import com.thoughtworks.tfoster.twu.Library;
+import com.thoughtworks.tfoster.twu.MediaDatabase;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintStream;
 
-public class CheckoutBookOption implements MenuOption {
+public class CheckoutMediaItemOption implements MenuOption {
 
-    private Library library;
+    private MediaDatabase mediaDatabase;
     private PrintStream printStream;
     private BufferedReader bufferedReader;
 
-    public CheckoutBookOption(Library library, PrintStream printStream, BufferedReader bufferedReader) {
-        this.library = library;
+    public CheckoutMediaItemOption(MediaDatabase mediaDatabase, PrintStream printStream, BufferedReader bufferedReader) {
+        this.mediaDatabase = mediaDatabase;
         this.printStream = printStream;
         this.bufferedReader = bufferedReader;
     }
@@ -30,8 +30,8 @@ public class CheckoutBookOption implements MenuOption {
         printStream.print("> ");
         String title = readTitleFromUser();
 
-        if(library.isBookAvailable(title)) {
-            library.checkoutBook(title);
+        if(mediaDatabase.isAvailable(title)) {
+            mediaDatabase.checkoutItem(title);
             printStream.println("Thank you! Enjoy the book.");
         } else {
             printStream.println("That book is not available.");

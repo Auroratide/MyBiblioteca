@@ -1,9 +1,9 @@
 package com.thoughtworks.tfoster.twu;
 
 import com.thoughtworks.tfoster.twu.options.MenuOption;
-import com.thoughtworks.tfoster.twu.options.PrintLibraryOption;
+import com.thoughtworks.tfoster.twu.options.PrintMediaDatabaseOption;
 import com.thoughtworks.tfoster.twu.options.QuitOption;
-import com.thoughtworks.tfoster.twu.options.ReturnBookOption;
+import com.thoughtworks.tfoster.twu.options.ReturnMediaItemOption;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -34,9 +34,9 @@ public class MainMenuTest {
 
     @Test
     public void shouldSeeListBooksWhenListingBooksIsAnOption() throws Exception {
-        PrintLibraryOption printLibraryOption = mock(PrintLibraryOption.class);
-        when(printLibraryOption.title()).thenCallRealMethod();
-        options.add(printLibraryOption);
+        PrintMediaDatabaseOption printMediaDatabaseOption = mock(PrintMediaDatabaseOption.class);
+        when(printMediaDatabaseOption.title()).thenCallRealMethod();
+        options.add(printMediaDatabaseOption);
         mainMenu.showMenu();
 
         verify(printStream).print("List Books");
@@ -54,9 +54,9 @@ public class MainMenuTest {
 
     @Test
     public void shouldSeeReturnBooksWhenReturningIsAnOption() throws Exception {
-        ReturnBookOption returnBookOption = mock(ReturnBookOption.class);
-        when(returnBookOption.title()).thenCallRealMethod();
-        options.add(returnBookOption);
+        ReturnMediaItemOption returnMediaItemOption = mock(ReturnMediaItemOption.class);
+        when(returnMediaItemOption.title()).thenCallRealMethod();
+        options.add(returnMediaItemOption);
         mainMenu.showMenu();
 
         verify(printStream).print("Return book");
@@ -64,12 +64,12 @@ public class MainMenuTest {
 
     @Test
     public void shouldSeeBothListBooksAndQuitWhenBothListingBooksAndQuittingAreOptions() throws Exception {
-        PrintLibraryOption printLibraryOption = mock(PrintLibraryOption.class);
-        when(printLibraryOption.title()).thenCallRealMethod();
+        PrintMediaDatabaseOption printMediaDatabaseOption = mock(PrintMediaDatabaseOption.class);
+        when(printMediaDatabaseOption.title()).thenCallRealMethod();
         QuitOption quitOption = mock(QuitOption.class);
         when(quitOption.title()).thenCallRealMethod();
 
-        options.add(printLibraryOption);
+        options.add(printMediaDatabaseOption);
         options.add(quitOption);
         mainMenu.showMenu();
 

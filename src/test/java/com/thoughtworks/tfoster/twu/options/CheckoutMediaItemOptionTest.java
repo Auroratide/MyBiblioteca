@@ -1,6 +1,6 @@
 package com.thoughtworks.tfoster.twu.options;
 
-import com.thoughtworks.tfoster.twu.Library;
+import com.thoughtworks.tfoster.twu.MediaDatabase;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -9,19 +9,19 @@ import java.io.PrintStream;
 
 import static org.mockito.Mockito.*;
 
-public class CheckoutBookOptionTest {
+public class CheckoutMediaItemOptionTest {
 
     private PrintStream printStream;
-    private CheckoutBookOption option;
+    private CheckoutMediaItemOption option;
     private BufferedReader bufferedReader;
-    private Library library;
+    private MediaDatabase mediaDatabase;
 
     @Before
     public void setUp() throws Exception {
         printStream = mock(PrintStream.class);
         bufferedReader = mock(BufferedReader.class);
-        library = mock(Library.class);
-        option = new CheckoutBookOption(library, printStream, bufferedReader);
+        mediaDatabase = mock(MediaDatabase.class);
+        option = new CheckoutMediaItemOption(mediaDatabase, printStream, bufferedReader);
     }
 
     @Test
@@ -42,10 +42,10 @@ public class CheckoutBookOptionTest {
     public void shouldCheckoutSpecifiedBookFromLibraryWhenRun() throws Exception {
         String bookTitle = "Title of Book";
         when(bufferedReader.readLine()).thenReturn(bookTitle);
-        when(library.isBookAvailable(bookTitle)).thenReturn(true);
+        when(mediaDatabase.isAvailable(bookTitle)).thenReturn(true);
         option.run();
 
-        verify(library).checkoutBook(bookTitle);
+        verify(mediaDatabase).checkoutItem(bookTitle);
     }
 
     @Test
@@ -54,14 +54,14 @@ public class CheckoutBookOptionTest {
         when(bufferedReader.readLine()).thenReturn(bookTitle);
         option.run();
 
-        verify(library).isBookAvailable(bookTitle);
+        verify(mediaDatabase).isAvailable(bookTitle);
     }
 
     @Test
     public void shouldPrintSuccessMessageIfBookHasBeenCheckedOut() throws Exception {
         String bookTitle = "Title of Book";
         when(bufferedReader.readLine()).thenReturn(bookTitle);
-        when(library.isBookAvailable(bookTitle)).thenReturn(true);
+        when(mediaDatabase.isAvailable(bookTitle)).thenReturn(true);
         option.run();
 
         verify(printStream).println("Thank you! Enjoy the book.");
@@ -71,7 +71,7 @@ public class CheckoutBookOptionTest {
     public void shouldPrintErrorMessageIfBookIsNotAvailable() throws Exception {
         String bookTitle = "Title of Book";
         when(bufferedReader.readLine()).thenReturn(bookTitle);
-        when(library.isBookAvailable(bookTitle)).thenReturn(false);
+        when(mediaDatabase.isAvailable(bookTitle)).thenReturn(false);
         option.run();
 
         verify(printStream).println("That book is not available.");

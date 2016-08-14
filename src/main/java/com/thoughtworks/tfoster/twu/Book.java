@@ -2,7 +2,7 @@ package com.thoughtworks.tfoster.twu;
 
 import java.io.PrintStream;
 
-public class Book {
+public class Book implements MediaItem {
 
     private static final int TITLE_WIDTH = 15;
     private static final int AUTHOR_WIDTH = 15;
@@ -28,13 +28,14 @@ public class Book {
         printStream.print("\n");
     }
 
+    public boolean hasTitle(String title) {
+        return this.title.equals(title);
+    }
+
     private String fixFieldWidth(String field, int width) {
         String maxedString = field.substring(0, Math.min(field.length(), width));
 
         return String.format("%1$" + width + "s", maxedString);
     }
 
-    public boolean hasTitle(String title) {
-        return this.title.equals(title);
-    }
 }
