@@ -2,29 +2,34 @@ package com.thoughtworks.tfoster.twu;
 
 import java.io.PrintStream;
 
-public class Book {
+public class Movie {
 
     private static final int TITLE_WIDTH = 15;
-    private static final int AUTHOR_WIDTH = 15;
+    private static final int DIRECTOR_WIDTH = 15;
 
-    private String title;
-    private String author;
-    private String yearPublished;
+    private final String title;
+    private final String director;
+    private final String year;
+    private final String rating;
     private PrintStream printStream;
 
-    public Book(String title, String author, String yearPublished, PrintStream printStream) {
+    public Movie(String title, String director, String year, String rating, PrintStream printStream) {
+
         this.title = title;
-        this.author = author;
-        this.yearPublished = yearPublished;
+        this.director = director;
+        this.year = year;
+        this.rating = rating;
         this.printStream = printStream;
     }
 
     public void print() {
         printStream.print(fixFieldWidth(title, TITLE_WIDTH));
         printStream.print(" | ");
-        printStream.print(fixFieldWidth(author, AUTHOR_WIDTH));
+        printStream.print(fixFieldWidth(director, DIRECTOR_WIDTH));
         printStream.print(" | ");
-        printStream.print(fixFieldWidth(yearPublished, 4));
+        printStream.print(fixFieldWidth(year, 4));
+        printStream.print(" | ");
+        printStream.print(fixFieldWidth(rating, 2));
         printStream.print("\n");
     }
 
@@ -32,9 +37,5 @@ public class Book {
         String maxedString = field.substring(0, Math.min(field.length(), width));
 
         return String.format("%1$" + width + "s", maxedString);
-    }
-
-    public boolean hasTitle(String title) {
-        return this.title.equals(title);
     }
 }
