@@ -1,12 +1,12 @@
 package com.thoughtworks.tfoster.twu.options;
 
-import com.thoughtworks.tfoster.twu.Biblioteca;
+import com.thoughtworks.tfoster.twu.ApplicationDriver;
 
 public class QuitOption implements MenuOption {
-    private Biblioteca biblioteca;
+    private ApplicationDriver driver;
 
-    public QuitOption(Biblioteca biblioteca) {
-        this.biblioteca = biblioteca;
+    public QuitOption(ApplicationDriver driver) {
+        this.driver = driver;
     }
 
     @Override
@@ -16,6 +16,6 @@ public class QuitOption implements MenuOption {
 
     @Override
     public void run() {
-        biblioteca.quit();
+        driver.quit();
     }
 }

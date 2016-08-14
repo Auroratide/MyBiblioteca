@@ -1,5 +1,6 @@
 package com.thoughtworks.tfoster.twu.options;
 
+import com.thoughtworks.tfoster.twu.ApplicationDriver;
 import com.thoughtworks.tfoster.twu.Biblioteca;
 import org.junit.Test;
 
@@ -10,10 +11,10 @@ import static org.mockito.Mockito.verify;
 public class QuitOptionTest {
     @Test
     public void shouldQuitBibliotecaWhenRun() throws Exception {
-        Biblioteca biblioteca = mock(Biblioteca.class);
-        QuitOption quitOption = new QuitOption(biblioteca);
+        ApplicationDriver driver = mock(ApplicationDriver.class);
+        QuitOption quitOption = new QuitOption(driver);
         quitOption.run();
 
-        verify(biblioteca).quit();
+        verify(driver).quit();
     }
 }

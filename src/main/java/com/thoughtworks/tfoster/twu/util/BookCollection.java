@@ -29,7 +29,6 @@ public class BookCollection implements Iterable<Book> {
         return getBookWithTitle(title) != null;
     }
 
-
     private Book getBookWithTitle(String title) {
         for(Book book : books)
             if(book.hasTitle(title))
