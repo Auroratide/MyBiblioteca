@@ -28,6 +28,7 @@ public class ReturnMediaItemOptionTest {
 
     @Test
     public void shouldInformUserOfPromptWhenRun() throws Exception {
+        when(mediaDatabase.getMediaType()).thenReturn("book");
         option.run();
 
         verify(printStream).println("Type in the title of the book you want to return:");
@@ -52,7 +53,7 @@ public class ReturnMediaItemOptionTest {
 
     @Test
     public void shouldCheckIfBookWithTitleIsCheckedOutWhenRun() throws Exception {
-        String title = "Book Title";
+        String title = "Title";
         when(reader.readLine()).thenReturn(title);
         option.run();
 
@@ -61,9 +62,11 @@ public class ReturnMediaItemOptionTest {
 
     @Test
     public void shouldPrintSuccessMessageIfBookHasBeenReturned() throws Exception {
-        String bookTitle = "Title of Book";
+        String bookTitle = "Title of BookDetails";
         when(reader.readLine()).thenReturn(bookTitle);
         when(mediaDatabase.isCheckedOut(bookTitle)).thenReturn(true);
+        when(mediaDatabase.getMediaType()).thenReturn("book");
+
         option.run();
 
         verify(printStream).println("Thank you for returning the book.");
@@ -71,9 +74,10 @@ public class ReturnMediaItemOptionTest {
 
     @Test
     public void shouldPrintErrorMessageIfBookIsNotCheckedOut() throws Exception {
-        String bookTitle = "Title of Book";
+        String bookTitle = "Title of BookDetails";
         when(reader.readLine()).thenReturn(bookTitle);
         when(mediaDatabase.isAvailable(bookTitle)).thenReturn(false);
+        when(mediaDatabase.getMediaType()).thenReturn("book");
         option.run();
 
         verify(printStream).println("That is not a valid book to return.");

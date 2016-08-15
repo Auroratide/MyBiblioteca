@@ -4,12 +4,18 @@ import com.thoughtworks.tfoster.twu.util.MediaCollection;
 
 public class MediaDatabase {
 
+    private String mediaType;
     private MediaCollection availableItems;
     private MediaCollection checkedOutItems;
 
-    public MediaDatabase(MediaCollection availableItems, MediaCollection checkedOutItems) {
+    public MediaDatabase(String mediaType, MediaCollection availableItems, MediaCollection checkedOutItems) {
+        this.mediaType = mediaType;
         this.availableItems = availableItems;
         this.checkedOutItems = checkedOutItems;
+    }
+
+    public String getMediaType() {
+        return mediaType;
     }
 
     public void print() {

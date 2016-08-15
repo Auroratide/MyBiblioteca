@@ -26,6 +26,7 @@ public class CheckoutMediaItemOptionTest {
 
     @Test
     public void shouldInformUserOfPromptForBookTitleWhenRun() throws Exception {
+        when(mediaDatabase.getMediaType()).thenReturn("book");
         option.run();
 
         verify(printStream).println("Type in the title of the book you want to check out:");
@@ -40,7 +41,7 @@ public class CheckoutMediaItemOptionTest {
 
     @Test
     public void shouldCheckoutSpecifiedBookFromLibraryWhenRun() throws Exception {
-        String bookTitle = "Title of Book";
+        String bookTitle = "Title of BookDetails";
         when(bufferedReader.readLine()).thenReturn(bookTitle);
         when(mediaDatabase.isAvailable(bookTitle)).thenReturn(true);
         option.run();
@@ -50,7 +51,7 @@ public class CheckoutMediaItemOptionTest {
 
     @Test
     public void shouldCheckIfBookWithTitleIsAvailableWhenRun() throws Exception {
-        String bookTitle = "Title of Book";
+        String bookTitle = "Title of BookDetails";
         when(bufferedReader.readLine()).thenReturn(bookTitle);
         option.run();
 
@@ -59,9 +60,10 @@ public class CheckoutMediaItemOptionTest {
 
     @Test
     public void shouldPrintSuccessMessageIfBookHasBeenCheckedOut() throws Exception {
-        String bookTitle = "Title of Book";
+        String bookTitle = "Title of BookDetails";
         when(bufferedReader.readLine()).thenReturn(bookTitle);
         when(mediaDatabase.isAvailable(bookTitle)).thenReturn(true);
+        when(mediaDatabase.getMediaType()).thenReturn("book");
         option.run();
 
         verify(printStream).println("Thank you! Enjoy the book.");
@@ -69,9 +71,11 @@ public class CheckoutMediaItemOptionTest {
 
     @Test
     public void shouldPrintErrorMessageIfBookIsNotAvailable() throws Exception {
-        String bookTitle = "Title of Book";
+        String bookTitle = "Title of BookDetails";
         when(bufferedReader.readLine()).thenReturn(bookTitle);
         when(mediaDatabase.isAvailable(bookTitle)).thenReturn(false);
+        when(mediaDatabase.getMediaType()).thenReturn("book", "book", "book");
+
         option.run();
 
         verify(printStream).println("That book is not available.");

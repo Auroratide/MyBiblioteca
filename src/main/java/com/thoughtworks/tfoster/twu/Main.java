@@ -42,24 +42,24 @@ public class Main {
 
     private static MediaDatabase initializeLibrary(PrintStream printStream) {
         List<MediaItem> books = new ArrayList<>();
-        books.add(new Book("Proton", "Author 1", "2001", printStream));
-        books.add(new Book("Electron", "Author 2", "2002", printStream));
-        books.add(new Book("Neutron", "Author 3", "2003", printStream));
+        books.add(new MediaItem("Proton", printStream, new BookDetails("Author 1", "2001")));
+        books.add(new MediaItem("Neutron", printStream, new BookDetails("Author 2", "2002")));
+        books.add(new MediaItem("Electron", printStream, new BookDetails("Author 3", "2003")));
 
         Collection<MediaItem> checkedOutBooks = new ArrayList<>();
 
-        return new MediaDatabase(new MediaCollection(books), new MediaCollection(checkedOutBooks));
+        return new MediaDatabase("book", new MediaCollection(books), new MediaCollection(checkedOutBooks));
     }
 
     private static MediaDatabase initializeMovies(PrintStream printStream) {
         List<MediaItem> movies = new ArrayList<>();
-        movies.add(new Movie("Mercury", "Director 1", "1999", "7", printStream));
-        movies.add(new Movie("Venus", "Director 2", "1998", "5", printStream));
-        movies.add(new Movie("Earth", "Director 3", "1997", "10", printStream));
+        movies.add(new MediaItem("ProtonM", printStream,new MovieDetails("Director 1", "1999", "7")));
+        movies.add(new MediaItem("NeutronM", printStream,new MovieDetails("Director 2", "1998", "5")));
+        movies.add(new MediaItem("ElectronM", printStream,new MovieDetails("Director 3", "1997", "10")));
 
         Collection<MediaItem> checkedOutMovies = new ArrayList<>();
 
-        return new MediaDatabase(new MediaCollection(movies), new MediaCollection(checkedOutMovies));
+        return new MediaDatabase("movie", new MediaCollection(movies), new MediaCollection(checkedOutMovies));
     }
 
 }

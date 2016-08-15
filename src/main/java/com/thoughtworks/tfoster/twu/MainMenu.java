@@ -35,6 +35,7 @@ public class MainMenu {
 
         try {
             String userInput = reader.readLine();
+
             if(isValidMenuSelection(userInput))
                 options.get(Integer.parseInt(userInput) - 1).run();
             else

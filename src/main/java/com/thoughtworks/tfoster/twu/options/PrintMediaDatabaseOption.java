@@ -12,7 +12,7 @@ public class PrintMediaDatabaseOption implements MenuOption {
 
     @Override
     public String title() {
-        return "List Books";
+        return "List " + mediaDatabase.getMediaType() + "s";
     }
 
     @Override

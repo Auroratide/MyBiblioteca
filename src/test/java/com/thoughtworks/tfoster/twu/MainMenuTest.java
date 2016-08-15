@@ -33,51 +33,6 @@ public class MainMenuTest {
     }
 
     @Test
-    public void shouldSeeListBooksWhenListingBooksIsAnOption() throws Exception {
-        PrintMediaDatabaseOption printMediaDatabaseOption = mock(PrintMediaDatabaseOption.class);
-        when(printMediaDatabaseOption.title()).thenCallRealMethod();
-        options.add(printMediaDatabaseOption);
-        mainMenu.showMenu();
-
-        verify(printStream).print("List Books");
-    }
-
-    @Test
-    public void shouldSeeQuitWhenQuittingIsAnOption() throws Exception {
-        QuitOption quitOption = mock(QuitOption.class);
-        when(quitOption.title()).thenCallRealMethod();
-        options.add(quitOption);
-        mainMenu.showMenu();
-
-        verify(printStream).print("Quit");
-    }
-
-    @Test
-    public void shouldSeeReturnBooksWhenReturningIsAnOption() throws Exception {
-        ReturnMediaItemOption returnMediaItemOption = mock(ReturnMediaItemOption.class);
-        when(returnMediaItemOption.title()).thenCallRealMethod();
-        options.add(returnMediaItemOption);
-        mainMenu.showMenu();
-
-        verify(printStream).print("Return book");
-    }
-
-    @Test
-    public void shouldSeeBothListBooksAndQuitWhenBothListingBooksAndQuittingAreOptions() throws Exception {
-        PrintMediaDatabaseOption printMediaDatabaseOption = mock(PrintMediaDatabaseOption.class);
-        when(printMediaDatabaseOption.title()).thenCallRealMethod();
-        QuitOption quitOption = mock(QuitOption.class);
-        when(quitOption.title()).thenCallRealMethod();
-
-        options.add(printMediaDatabaseOption);
-        options.add(quitOption);
-        mainMenu.showMenu();
-
-        verify(printStream).print("List Books");
-        verify(printStream).print("Quit");
-    }
-
-    @Test
     public void shouldRunSecondOptionWhenOption2IsChosen() throws Exception {
         options.add(mock(MenuOption.class));
         options.add(mock(MenuOption.class));

@@ -1,6 +1,5 @@
 package com.thoughtworks.tfoster.twu.util;
 
-import com.thoughtworks.tfoster.twu.Book;
 import com.thoughtworks.tfoster.twu.MediaItem;
 import org.junit.Before;
 import org.junit.Test;
@@ -15,22 +14,22 @@ import static org.mockito.Mockito.when;
 
 public class MediaCollectionTest {
 
-    private Book book;
+    private MediaItem mediaItem;
     private Collection<MediaItem> collectionBackend;
     private MediaCollection collection;
 
     @Before
     public void setUp() throws Exception {
-        book = mock(Book.class);
+        mediaItem = mock(MediaItem.class);
         collectionBackend = new ArrayList<>();
-        collectionBackend.add(book);
+        collectionBackend.add(mediaItem);
 
         collection = new MediaCollection(collectionBackend);
     }
 
     @Test
     public void shouldReturnTrueWhenBookIsInCollection() throws Exception {
-        when(book.hasTitle("Title")).thenReturn(true);
+        when(mediaItem.hasTitle("Title")).thenReturn(true);
 
         assertThat(collection.contains("Title"), is(true));
     }
@@ -42,20 +41,20 @@ public class MediaCollectionTest {
 
     @Test
     public void shouldNotHaveTheBookAnymoreAfterMovingBookToAnotherCollection() throws Exception {
-        String title = "Book Title";
-        when(book.hasTitle(title)).thenReturn(true);
+        String title = "Title";
+        when(mediaItem.hasTitle(title)).thenReturn(true);
         collection.moveToCollection(title, new MediaCollection(new ArrayList<MediaItem>()));
 
-        assertThat(collectionBackend.contains(book), is(false));
+        assertThat(collectionBackend.contains(mediaItem), is(false));
     }
 
     @Test
     public void shouldHaveBookInOtherCollectionAfterMovingBookToAnotherCollection() throws Exception {
-        String title = "Book title";
-        when(book.hasTitle(title)).thenReturn(true);
+        String title = "Title";
+        when(mediaItem.hasTitle(title)).thenReturn(true);
         Collection<MediaItem> otherBackend = new ArrayList<>();
         collection.moveToCollection(title, new MediaCollection(otherBackend));
 
-        assertThat(otherBackend.contains(book), is(true));
+        assertThat(otherBackend.contains(mediaItem), is(true));
     }
 }

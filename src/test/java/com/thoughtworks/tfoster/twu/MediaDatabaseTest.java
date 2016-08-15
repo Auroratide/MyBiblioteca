@@ -1,12 +1,15 @@
 package com.thoughtworks.tfoster.twu;
 
 import com.thoughtworks.tfoster.twu.util.MediaCollection;
+import org.hamcrest.Matcher;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
+import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.*;
 
 public class MediaDatabaseTest {
@@ -20,7 +23,7 @@ public class MediaDatabaseTest {
         availableItems = mock(MediaCollection.class);
         checkedOutItems = mock(MediaCollection.class);
 
-        mediaDatabase = new MediaDatabase(availableItems, checkedOutItems);
+        mediaDatabase = new MediaDatabase("<MEDIA TYPE>", availableItems, checkedOutItems);
     }
 
     @Test
@@ -52,6 +55,11 @@ public class MediaDatabaseTest {
     }
 
     @Test
+    public void shouldReturnMediaTypeWhenGettingTheMediaType() throws Exception {
+        assertThat(mediaDatabase.getMediaType(), is("<MEDIA TYPE>"));
+    }
+
+    @Test
     public void shouldPrintAvailableBooksWhenPrinted() throws Exception {
         MediaItem item1 = mock(MediaItem.class);
         MediaItem item2 = mock(MediaItem.class);
@@ -62,7 +70,7 @@ public class MediaDatabaseTest {
         Collection<MediaItem> checkedOutBackend = new ArrayList<>();
         checkedOutBackend.add(item3);
 
-        mediaDatabase = new MediaDatabase(new MediaCollection(availableBackend), new MediaCollection(checkedOutBackend));
+        mediaDatabase = new MediaDatabase("book", new MediaCollection(availableBackend), new MediaCollection(checkedOutBackend));
         mediaDatabase.print();
 
         verify(item1).print();

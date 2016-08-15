@@ -20,12 +20,12 @@ public class ReturnMediaItemOption implements MenuOption {
 
     @Override
     public String title() {
-        return "Return book";
+        return "Return " + mediaDatabase.getMediaType();
     }
 
     @Override
     public void run() {
-        printStream.println("Type in the title of the book you want to return:");
+        printStream.println("Type in the title of the " + mediaDatabase.getMediaType() + " you want to return:");
 
         printStream.print("> ");
         String userInput = "";
@@ -38,9 +38,9 @@ public class ReturnMediaItemOption implements MenuOption {
 
         if(mediaDatabase.isCheckedOut(userInput)) {
             mediaDatabase.returnItem(userInput);
-            printStream.println("Thank you for returning the book.");
+            printStream.println("Thank you for returning the " + mediaDatabase.getMediaType() + ".");
         }
         else
-            printStream.println("That is not a valid book to return.");
+            printStream.println("That is not a valid " + mediaDatabase.getMediaType() + " to return.");
     }
 }

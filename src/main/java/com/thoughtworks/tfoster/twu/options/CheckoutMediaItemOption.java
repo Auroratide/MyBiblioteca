@@ -11,7 +11,7 @@ public class CheckoutMediaItemOption implements MenuOption {
     private MediaDatabase mediaDatabase;
     private PrintStream printStream;
     private BufferedReader bufferedReader;
-
+        
     public CheckoutMediaItemOption(MediaDatabase mediaDatabase, PrintStream printStream, BufferedReader bufferedReader) {
         this.mediaDatabase = mediaDatabase;
         this.printStream = printStream;
@@ -20,21 +20,21 @@ public class CheckoutMediaItemOption implements MenuOption {
 
     @Override
     public String title() {
-        return "Checkout book";
+        return "Checkout " + mediaDatabase.getMediaType();
     }
 
     @Override
     public void run() {
-        printStream.println("Type in the title of the book you want to check out:");
+        printStream.println("Type in the title of the " + mediaDatabase.getMediaType() + " you want to check out:");
 
         printStream.print("> ");
         String title = readTitleFromUser();
 
         if(mediaDatabase.isAvailable(title)) {
             mediaDatabase.checkoutItem(title);
-            printStream.println("Thank you! Enjoy the book.");
+            printStream.println("Thank you! Enjoy the " + mediaDatabase.getMediaType() + ".");
         } else {
-            printStream.println("That book is not available.");
+            printStream.println("That " + mediaDatabase.getMediaType() + " is not available.");
         }
     }
 
@@ -47,4 +47,5 @@ public class CheckoutMediaItemOption implements MenuOption {
         return null;
     }
 
+    
 }
